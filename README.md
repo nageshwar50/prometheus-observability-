@@ -274,32 +274,63 @@ Once the dashbaord template is imported, you should be able to see all the node 
 ## Simulate & Test Alert Manager Alerts
 You can access the Alertmanager dashbaord on http://your-ip-address:9093
 
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/fec7784d-838a-49f7-b814-bfad8e392e0c)
+
+Alert rules are already backed in to the prometheus configuration through alertrules.yaml. If you go the alerts option in the prometheus menu, you will be able to see the configured alerts as shown below.
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/681319f3-5960-4c95-8873-ca45e0944c2c)
+
+As you can see, all the alerts are in inactive stage. To test the alerts, we need to simulate these alerts using few linux utilities.
+
+You can also check the alert rules using the native promtool prometheus CLI. We need to run promtool command from inside the prometheus container as shown below.
+
+<pre>
+  sudo docker exec -it prometheus promtool check rules /etc/prometheus/alertrules.yml
+</pre>
+
+## Test: High Storage & CPU Alert
+
+<pre>
+  dd if=/dev/zero of=testfile_16GB bs=1M count=16384; openssl speed -multi $(nproc --all) &
+</pre>
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/541fdd39-1594-4db4-8c00-708862e0f575)
+
+Now we can check the Alert manager UI to confirm the fired alerts. 
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/ac08f442-3a21-4427-ac32-8f14149c26ac)
+
+Now let’s rollback the changes and see the fired alerts has been resolved.
+<pre>
+  rm testfile_16GB && kill $(pgrep openssl)
+</pre>
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/7dbe48ed-2080-4e51-9bf2-7cf4929c4933)
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/e5532ccd-b63a-4c00-81c7-dc90993a8061)
+
+# Cleanup The Setup
+To tear down the setup, execute the following terraform command from your workstation.
+
+terraform destroy --var-file=../vars/ec2.tfvars
+
+## Possible Errors
+If you don’t have the correct ec2 AMI id set in the vars file, you will get the following error. To rectify the issue, update the correct AMI ID related to the region you are using.
+
+<pre>
+  Error: creating EC2 Instance: InvalidAMIID.NotFound: The image id '[ami-0a75bd84854bc95c9]' does not exist
+│       status code: 400, request id: 34d38d4d-c3b8-47e6-9c27-1b1cbccbab83
+</pre>
 
 
+## Conclusion
+As a quick recap we learned to provision the AWS infra using Terraform.
 
+Then we brough up the Prometheus Observability stack using Docker compose and configured Grafana to create Node Exporter metrics dashboard.
 
+Also we simulated alerts to check the validate the alerting.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+If you’re facing any kind of issues, let me know in the comment section.
 
 
 
