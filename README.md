@@ -1,5 +1,6 @@
 # Setting Up Prometheus Observability Stack Using Docker
-![Untitled Diagram drawio](https://github.com/nageshwar50/prometheus-observability/assets/128671109/44a93665-06c8-4da7-9b6e-ac860ff3792b)
+![Untitled Diagram drawio](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/944bc774-9781-4da0-81ff-743e5b1a9e36)
+
 
 
 This blog covers the step-by-step guide to set up an Observability Stack that includes Prometheus, Grafana, and Alert Manager using Terraform, Docker, and Docker Compose.
@@ -70,7 +71,8 @@ Clone the DevOps projects repository to your workstation to follow the guide.
 Note: Use visual studio code or relevant IDE to understand the code structure better.
   </pre>
 
-![image](https://github.com/nageshwar50/prometheus-observability/assets/128671109/056962f6-15ab-460e-ba29-f966edae0e26)
+![Screenshot from 2023-11-30 12-56-44](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/66517e8e-4c41-4505-98bf-20a626e53edb)
+
 
 ## Let’s understand the project files.
 
@@ -125,7 +127,8 @@ application = "monitoring"
 
 Now we can provision the AWS EC2 & Security group using Terraform.
 First, we need to install Terraform
-![image](https://github.com/nageshwar50/prometheus-observability/assets/128671109/ee2fa5d6-9316-4544-a901-088b8a3450c6)
+![Screenshot from 2023-11-30 13-03-05](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/cbd699b8-6a47-46cc-a4f5-7101a07273df)
+
 
 <pre>
 cd terraform-aws/prometheus-stack/
