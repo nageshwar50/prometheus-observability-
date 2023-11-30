@@ -175,13 +175,104 @@ Now we can connect to the AWS EC2 machine just created using the public IP. Repl
 
 </pre>
 
+We will check the cloud-init logs to see if the user data script has run successfully
 
+<pre>
+  tail /var/log/cloud-init-output.log
+</pre>
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/9d1f993c-ee78-4a1e-925a-915e463ae252)
 
+Let’s verify the docker and docker-compose versions again.
+<pre>
+  sudo docker version
+sudo docker-compose version
+</pre>
 
+Now that we have the instance ready with the required utilities, let’s deploy the Prometheus stack using docker-compose.
 
+## Deploy Prometheus Stack Using Docker Compose
 
+First, clone the project code repository to the server.
+<pre>
+  https://github.com/nageshwar50/prometheus-observability-.git
+  cd prometheus-observability-/
+</pre>
 
+Execute the following make command to update server IP in prometheus config file. Because we are running the node exporter on the same server to fetch the server metrics. We also update the alert manager endpoint to the servers public IP address.
 
+<pre>
+  make all
+</pre>
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/9c42c293-9219-430e-8719-486d04a7f30e)
+
+Bring up the stack using Docker Compose. It will deploy Prometheus, Alert manager, Node exporter and Grafana
+<pre>
+  sudo docker-compose up -d
+</pre>
+On a successful execution, you should see the following output saying Running 5/5
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/dd392abf-7cc9-43d9-ae8b-4f67f059a8de)
+
+Now, with your servers IP address you can access all the apps on different ports.
+
+Prometheus: http://your-ip-address:9090
+Alert Manager: http://your-ip-address:9093
+Grafana: http://your-ip-address:3000
+
+Now the stack deployment is done. The rest of the configuration and testing will be done the using the GUI.
+
+## Validate Prometheus Node Exporter Metrics
+
+If you visit http://your-ip-address:9090, you will be able to access the Prometheus dashboard as shown below.
+
+Validate the targets, rules and configurations as shown below. The target would be Node exporter url.
+
+Status -> Targets
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/ddf6d4ae-5916-47fd-8122-492e25c7b5c4)
+
+Status -> Rules
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/f3730ae8-2fc4-4464-95db-c4f0e4b28fe0)
+
+Status -> Configuration
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/035bae01-d8c4-42bd-a299-2a4c28c0531b)
+
+Now lets execute a promQL statement to view node_cpu_seconds_total metrics scrapped from the node exporter.
+<pre>
+  avg by (instance,mode) (irate(node_cpu_seconds_total{mode!='idle'}[1m]))
+</pre>
+You should be able to data in graph as shown below.
+home -> add panel
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/548dca14-5fff-4957-ba7f-02c69fe56091)
+
+## Configure Grafana Dashboards
+
+Now lets configure Grafana dashboards for the Node Exporter metrics.
+
+Grafana can be accessed at: http://your-ip-address:3000
+
+Use admin as username and password to login to Grafana. You can update the password in the next window if required.
+
+Now we need to add prometheus URL as the data source from Connections→ Add new connection→ Prometheus → Add new data source.
+
+Here is the demo.
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/425d4ea0-6491-4d42-9371-52eb39bcc8ab)
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/c947beef-066b-4dd3-941f-f56becb825f6)
+
+## Configure Node Exporter Dashboard
+Grafana has many node exporter pre-built templates that will give us a ready to use dashboard for the key node exporter metrics.
+
+To import a dashboard, go to Dashboards –> Create Dashboard –> Import Dashboard –> Type 10180 and click load –> Select Prometheus Data source –> Import
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/2f84211a-6952-4acf-bd1f-201709ff6a92)
+
+Once the dashbaord template is imported, you should be able to see all the node exporter metrics as shown below.
+
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/3e5265b0-68f1-4f53-8b3a-8c7fbec63723)
+
+## Simulate & Test Alert Manager Alerts
+You can access the Alertmanager dashbaord on http://your-ip-address:9093
 
 
 
