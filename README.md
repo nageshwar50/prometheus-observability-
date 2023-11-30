@@ -127,6 +127,7 @@ application = "monitoring"
 
 Now we can provision the AWS EC2 & Security group using Terraform.
 First, we need to install Terraform
+
 ![Screenshot from 2023-11-30 13-03-05](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/cbd699b8-6a47-46cc-a4f5-7101a07273df)
 
 
@@ -142,6 +143,61 @@ Execute the plan and apply the changes.
   terraform plan --var-file=../vars/ec2.tfvars
 terraform apply --var-file=../vars/ec2.tfvars
 </pre>
+
+Before typing ‘yes‘ make sure the desired resources are being created. 
+<pre>
+  Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + instance_public_dns = [
+      + (known after apply),
+    ]
+  + instance_public_ip  = [
+      + (known after apply),
+    ]
+  + instance_state      = [
+      + (known after apply),
+    ]
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: 
+
+</pre>
+![image](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/24148539-9fdf-4de1-a4ad-2e04b09c2221)
+
+Now we can connect to the AWS EC2 machine just created using the public IP. Replace the key path/name and IP accordingly.
+
+<pre>
+  ssh -i pandey.pem ubuntu@34.216.95.97
+
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
