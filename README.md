@@ -318,7 +318,7 @@ terraform destroy --var-file=../vars/ec2.tfvars
 If you don’t have the correct ec2 AMI id set in the vars file, you will get the following error. To rectify the issue, update the correct AMI ID related to the region you are using.
 
 <pre>
-  Error: creating EC2 Instance: InvalidAMIID.NotFound: The image id '[ami-0a75bd84854bc95c9]' does not exist
+  Error: creating EC2 Instance: InvalidAMIID.NotFound: The image id '[ami-06873c81b882339ac]' does not exist
 │       status code: 400, request id: 34d38d4d-c3b8-47e6-9c27-1b1cbccbab83
 </pre>
 
