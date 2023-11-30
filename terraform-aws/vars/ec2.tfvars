@@ -1,6 +1,6 @@
 # EC2 Instance Variables
 region         = "ca-central-1"
-ami_id         = "ami-0fdd2bb78451114e8"
+ami_id         = "ami-06873c81b882339ac"
 instance_type  = "t2.micro"
 key_name       = "pandey"
 instance_count = 1
