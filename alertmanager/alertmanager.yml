@@ -1,0 +1,21 @@
+global:
+  resolve_timeout: 2m
+
+route:
+  receiver: 'email-notifications' # Change the receiver to the email configuration
+
+receivers:
+- name: 'email-notifications' # Define the email receiver
+  email_configs:
+    - to: 'your-email@example.com' # Replace with your email address
+      from: 'prometheus@example.com' # Replace with the sender email address
+      smarthost: 'smtp.example.com:587' # Replace with your SMTP server address and port
+      auth_username: 'your-username' # Replace with your SMTP username
+      auth_password: 'your-password' # Replace with your SMTP password
+      send_resolved: true
+
+- name: 'telegram-notifications' # Define the Telegram receiver
+  telegram_configs:
+    - api_token: '*****' # Replace with your Telegram bot token
+      chat_id: '******' # Replace with the Telegram channel or user where you want to send notifications
+      send_resolved: true # Set to true to send resolved alerts as well
