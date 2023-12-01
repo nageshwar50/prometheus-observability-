@@ -2,10 +2,10 @@
 ![Untitled Diagram drawio](https://github.com/nageshwar50/prometheus-observability-/assets/128671109/944bc774-9781-4da0-81ff-743e5b1a9e36)
 
 
-
-This blog covers the step-by-step guide to set up an Observability Stack that includes Prometheus, Grafana, and Alert Manager using Terraform, Docker, and Docker Compose.
-## DevOps Tools / Service Used
-In this setup, we have used the following open-source DevOps tools.
+This blog details the step-by-step process to establish an Observability Stack featuring Prometheus, Grafana, and Alert Manager through Terraform, Docker, and Docker Compose
+## 
+DevOps Tools / Service Utilized
+In this configuration, we've employed the subsequent open-source DevOps tools.
 
 Docker
 Prometheus
@@ -13,40 +13,36 @@ Alert Manager
 Grafana
 Prometheus Node Exporter
 Terraform
-Following are the AWS services used.
+The following AWS services have been utilized.
 
-ec2
-Following are the Linux concepts covered as part of the setup
+EC2
+The Linux concepts encompassed in the setup include:
 
-Makefile: Used to modify the server IP address in prometheus config.
-Linux SWAP: To add swap to the ec2 instance.
-Shell Scripts: To install Docker, Docker compose and add swap as part of ec2 system startup.
+Makefile: Employed to adjust the server IP address in the Prometheus configuration.
+Linux SWAP: Implemented to incorporate swap to the EC2 instance.
+Shell Scripts: Utilized to install Docker, Docker Compose, and add swap during EC2 system startup.
 
 ## Prerequisites
-To deploy the Prometheus stack on Docker, we have the following prerequisites:
+To initiate the deployment of the Prometheus stack on Docker, ensure you have the following prerequisites in place:
 
 AWS Account with a key pair.
-AWS CLI configured with the account.
+AWS CLI configured with the respective account.
 Terraform is installed on your local machine.
-
-In our setup, we will be using the following components
+In our configuration, we'll be relying on the following components
 
 ## 1. Prometheus
-Prometheus is used to scrape the data metrics, pulled from exporters like node exporters. It used to provide metrics to Grafana. It also has a TSDB(Time series database) for storing the metrics
+Prometheus serves the purpose of scraping data metrics, sourced from exporters such as node exporters. It is employed to furnish metrics to Grafana and features a Time Series Database (TSDB) for the storage of these metrics.
 
 ## Alert Manager
-Alert manager is a component of Prometheus that helps us to configure alerts based on rules using a config file. We can notify the alerts using any medium like email, slack, chats, etc.
+The Alert Manager, a key component of Prometheus, assists in configuring alerts based on predefined rules using a configuration file. Alerts can be notified through various mediums such as email, Slack, chats, etc.
 
-With a nice dashboard where all alerts can be seen from the Prometheus dashboard.
-
+Additionally, it provides a user-friendly dashboard within the Prometheus dashboard, offering visibility into all active alerts.
 ## 3. Node Exporter
-Node exporter is the Prometheus agent that fetches the node metrics and makes it available for Prometheus to fetch from /metrics endpoint. So basically node exporter collects all the server-level metrics such as CPU, memory, etc.
-While other custom agents are still available and can be used for pushing metrics to Prometheus
+Node Exporter functions as the Prometheus agent responsible for retrieving node metrics and presenting them for Prometheus to fetch through the /metrics endpoint. Essentially, the node exporter gathers server-level metrics, including CPU, memory, and more.
 
+It's worth noting that alternative custom agents remain accessible and can be employed for pushing metrics to Prometheus.
 ## 4. Grafana
-Grafana is a Data visualization tool that fetches the metrics from Prometheus and displays them as colorful and useful dashboards.
-It can be integrated with almost all available tools in the market.
-
+Grafana stands as a data visualization tool that retrieves metrics from Prometheus and presents them through vibrant and insightful dashboards. It boasts integration capabilities with nearly all tools available in the market, enhancing its versatility and compatibility.
 To deploy the Prometheus stack, we will be using the following DevOps Tools
 
 ## 1. Terraform
