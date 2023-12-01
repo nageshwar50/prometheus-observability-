@@ -3,8 +3,7 @@
 
 
 This blog details the step-by-step process to establish an Observability Stack featuring Prometheus, Grafana, and Alert Manager through Terraform, Docker, and Docker Compose
-## 
-DevOps Tools / Service Utilized
+## DevOps Tools / Service Utilized
 In this configuration, we've employed the subsequent open-source DevOps tools.
 
 Docker
